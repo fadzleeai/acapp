@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACAPP.AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet" />
+</head>
+
+<body class="min-h-screen flex flex-col items-center justify-center text-[#fa832d] px-6 py-10 relative">
+
+  <!-- Title -->
+  <h1 class="text-7xl font-bold tracking-normal mb-10 drop-shadow-lg text-[#fa832d]">ACAPP.AI</h1>
+
+  <!-- Mic Section -->
+  <div class="relative flex items-center justify-center mb-8">
+    <div id="wave" class="pulse-wave hidden"></div>
+    <div class="p-2 bg-[#fa832d]/20 rounded-full shadow-xl">
+      <button id="micBtn" class="press-effect w-40 h-40 rounded-full bg-[#fa832d] flex items-center justify-center text-5xl text-white shadow-md transition-all duration-300">
+        <i id="micIcon" class="fas fa-microphone"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Status -->
+  <p id="statusText" class="text-base text-[#ff6b00]/80 tracking-wide mb-6">Tap to speak</p>
+
+  <!-- Input & Output Panel -->
+  <div class="w-full max-w-xl bg-gradient-to-br from-[#ff9100] via-[#ff6b00] to-[#ff5400] p-6 rounded-xl shadow space-y-8 text-white">
+
+
+    <!-- Temperature -->
+    <div>
+      <label class="block text-sm font-medium mb-1">
+        Room Temperature: <span id="tempVal" class="font-bold">25</span>°C
+      </label>
+      <input id="tempSlider" type="range" min="16" max="32" value="25" class="w-full accent-white" />
+    </div>
+
+    <!-- Humidity -->
+    <div>
+      <label class="block text-sm font-medium mb-1">
+        Humidity: <span id="humVal" class="font-bold">50</span>%
+      </label>
+      <input id="humSlider" type="range" min="30" max="80" value="50" class="w-full accent-white" />
+    </div>
+
+    <!-- Voice -->
+    <div class="border-t border-white/40 pt-4">
+      <p class="text-sm font-medium">Detected Voice:</p>
+      <p id="voiceResult" class="text-lg font-semibold">-</p>
+    </div>
+
+    <!-- Output -->
+    <div class="border-t border-white/40 pt-4 grid grid-cols-2 gap-4">
+      <div>
+        <p class="text-sm font-medium">AC Temp Change:</p>
+        <p id="acTemp" class="text-2xl font-bold">-</p>
+      </div>
+      <div>
+        <p class="text-sm font-medium">Fan Speed:</p>
+        <p id="fanSpeed" class="text-2xl font-bold">-</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logic -->
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>
