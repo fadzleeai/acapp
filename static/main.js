@@ -18,34 +18,45 @@ micBtn.addEventListener("click", async () => {
   micIcon.classList.add("text-red-400");
   micIcon.classList.remove("text-orange-600");
   wave.classList.remove("hidden");
-  statusText.textContent = "Listening...";
+  statusText.textContent = "Initializing mic...";
 
-  try {
-    const response = await fetch("/mic", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        temp: parseInt(tempSlider.value),
-        humidity: parseInt(humSlider.value)
-      })
-    });
+  // First: Get slider values
+  const temp = parseInt(tempSlider.value);
+  const humidity = parseInt(humSlider.value);
 
-    const data = await response.json();
+  // Create a dynamic SSE request using query parameters (since EventSource only supports GET)
+  const url = `/mic-stream?temp=${temp}&humidity=${humidity}`;
+  const evtSource = new EventSource(url);
 
-    voiceResult.textContent = `"${data.voice}"`;
-    acTemp.textContent = `${data.temp.toFixed(1)}°C`;
-    fanSpeed.textContent = `${data.fan * 20}%`;
+  evtSource.onmessage = (event) => {
+    const data = JSON.parse(event.data);
 
-    statusText.textContent = "Result received!";
-  } catch (error) {
-    console.error("Mic error:", error);
-    statusText.textContent = "Error processing voice input.";
-  }
+    if (data.status === "mic_ready") {
+      statusText.textContent = data.message; // Speak now...
+    } else if (data.status === "listening") {
+      statusText.textContent = data.message; // Listening...
+    } else if (data.status === "transcribed") {
+      statusText.textContent = "Transcribed. Running fuzzy logic...";
+    } else if (data.status === "done") {
+      statusText.textContent = "Result received!";
+      voiceResult.textContent = `"${data.text}"`;
+      acTemp.textContent = `${data.temp.toFixed(1)}°C`;
+      fanSpeed.textContent = `${data.fan * 20}%`;
 
-  micIcon.classList.remove("text-red-400");
-  micIcon.classList.add("text-orange-600");
-  wave.classList.add("hidden");
+      micIcon.classList.remove("text-red-400");
+      micIcon.classList.add("text-orange-600");
+      wave.classList.add("hidden");
+      evtSource.close(); // 🔚 Done
+    } else if (data.status === "error") {
+      statusText.textContent = data.message;
+      micIcon.classList.remove("text-red-400");
+      micIcon.classList.add("text-orange-600");
+      wave.classList.add("hidden");
+      evtSource.close();
+    }
+  };
 });
+
 
 tempSlider.addEventListener("input", () => {
   tempVal.textContent = tempSlider.value;
