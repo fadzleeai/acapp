@@ -1,7 +1,6 @@
 from flask import Flask, request, Response, stream_with_context, render_template
-from SREC_MODEL import FuzzyModel, IntentClassifier
+from SREC_MODEL import FuzzyModel, IntentClassifier, SpeechTranscriber
 import json
-from SREC_MODEL.stt import listen_and_transcribe  # this is your new generator-based mic
 
 app = Flask(__name__)
 
@@ -17,7 +16,8 @@ def mic_stream():
     humidity = int(request.args.get("humidity", 50))
 
     def generate():
-        for update in listen_and_transcribe():
+        transcriber = SpeechTranscriber() 
+        for update in transcriber.transcribe():
             if update.get("status") == "transcribed":
                 voice_text = update["text"]
                 comfort = clf.classify_text(voice_text)
