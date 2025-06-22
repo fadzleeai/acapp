@@ -1,6 +1,6 @@
-# 🔊 ACApp.AI – Your Voice-Activated Comfort Companion
+# 🔊 ACApp AI – Your Voice-Activated Comfort Companion
 
-**ACApp.AI** is an intelligent voice-controlled assistant powered by fuzzy logic and NLP.  
+**ACApp AI** is an intelligent voice-controlled assistant powered by fuzzy logic and NLP.  
 Designed to interpret natural speech, this system analyzes your comfort-related commands (like _"It’s too hot!"_), classifies intent, and instantly adjusts fan speed and temperature using real-time fuzzy decision-making.
 
 ---
