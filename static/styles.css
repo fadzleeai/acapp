@@ -15,7 +15,7 @@ body {
 
 @keyframes pulseRing {
   0% {
-    transform: scale(1);
+    transform: scale(0.75);
     opacity: 0.4;
   }
   50% {

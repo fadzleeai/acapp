@@ -46,13 +46,3 @@ class IntentClassifier:
         scores = util.cos_sim(user_emb, self.intent_embeddings)
         best_idx = torch.argmax(scores).item()
         return self.intent_labels[best_idx]
-
-    def mic(self):
-        spoken_text = listen_and_transcribe()
-        if spoken_text:
-            comfort_level = self.classify_text(spoken_text)
-            print(f"\n🧊 Detected Comfort Level: {comfort_level}")
-            return comfort_level
-        else:
-            print("❌ Speech recognition failed.")
-            return None
