@@ -1,6 +1,5 @@
 from sentence_transformers import SentenceTransformer, util
 import torch
-from .stt import listen_and_transcribe # Import dari stt.py
 
 class IntentClassifier:
     def __init__(self):

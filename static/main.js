@@ -11,6 +11,7 @@ const tempVal = document.getElementById("tempVal");
 const humVal = document.getElementById("humVal");
 
 const voiceResult = document.getElementById("voiceResult");
+const comfortLevel = document.getElementById("comfortLevel")
 const acTemp = document.getElementById("acTemp");
 const fanSpeed = document.getElementById("fanSpeed");
 
@@ -40,6 +41,7 @@ micBtn.addEventListener("click", async () => {
     } else if (data.status === "done") {
       statusText.textContent = "Result received!";
       voiceResult.textContent = `"${data.text}"`;
+      comfortLevel.textContent = `${data.comfort}`;
       acTemp.textContent = `${data.temp.toFixed(1)}°C`;
       fanSpeed.textContent = `${data.fan * 20}%`;
 
@@ -53,6 +55,7 @@ micBtn.addEventListener("click", async () => {
       micIcon.classList.add("text-orange-600");
       wave.classList.add("hidden");
       evtSource.close();
+    
     }
   };
 });

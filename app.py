@@ -1,7 +1,6 @@
 from flask import Flask, request, Response, stream_with_context, render_template
-from SREC_MODEL import FuzzyModel, IntentClassifier
-import json
-from SREC_MODEL.stt import listen_and_transcribe  # this is your new generator-based mic
+from SREC_MODEL import FuzzyModel, IntentClassifier, SpeechTranscriber, TextToSpeech    
+import json, threading
 
 app = Flask(__name__)
 
@@ -13,11 +12,13 @@ def home():
 def mic_stream():
     model = FuzzyModel()
     clf = IntentClassifier()
+    tts = TextToSpeech()
     temp = int(request.args.get("temp", 25))
     humidity = int(request.args.get("humidity", 50))
 
     def generate():
-        for update in listen_and_transcribe():
+        transcriber = SpeechTranscriber()
+        for update in transcriber.transcribe():
             if update.get("status") == "transcribed":
                 voice_text = update["text"]
                 comfort = clf.classify_text(voice_text)
@@ -28,6 +29,7 @@ def mic_stream():
                     "fan": result[1],
                     "status": "done"
                 })
+                threading.Thread(target=tts.speak_adjustment, args=(result[0], result[1]), daemon=True).start()
             yield f"data: {json.dumps(update)}\n\n"
 
     return Response(stream_with_context(generate()), mimetype="text/event-stream")

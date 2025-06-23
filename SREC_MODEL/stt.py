@@ -1,31 +1,35 @@
 import speech_recognition as sr
 
-def listen_and_transcribe(save_to_file=True, file_path="transcription.txt"):
-    """
-    Generator: yields mic status and transcription.
-    """
-    r = sr.Recognizer()
+class SpeechTranscriber:
+    def __init__(self, save_to_file=True, file_path="transcription.txt"):
+        self.recognizer = sr.Recognizer()
+        self.save_to_file = save_to_file
+        self.file_path = file_path
 
-    with sr.Microphone() as source:
-        yield {"status": "mic_ready", "message": "🎤 Speak now..."}
-        r.adjust_for_ambient_noise(source)
+    def transcribe(self):
+        """
+        Generator: yields mic status and transcription.
+        """
+        with sr.Microphone() as source:
+            yield {"status": "mic_ready", "message": "Speak now..."}
+            self.recognizer.adjust_for_ambient_noise(source)
 
-        while True:
-            yield {"status": "listening", "message": "Listening..."}
-            audio = r.listen(source)
+            while True:
+                yield {"status": "listening", "message": "Listening..."}
+                audio = self.recognizer.listen(source)
 
-            try:
-                text = r.recognize_google(audio)
-                yield {"status": "transcribed", "text": text}
+                try:
+                    text = self.recognizer.recognize_google(audio)
+                    yield {"status": "transcribed", "text": text}
 
-                if save_to_file:
-                    with open(file_path, "a", encoding="utf-8") as f:
-                        f.write(text + "\n")
+                    if self.save_to_file:
+                        with open(self.file_path, "a", encoding="utf-8") as f:
+                            f.write(text + "\n")
 
-                return  # Done after one transcription
+                    return  # Done after one transcription
 
-            except sr.UnknownValueError:
-                yield {"status": "error", "message": "Could not understand. Try again..."}
-            except sr.RequestError:
-                yield {"status": "error", "message": "API unavailable."}
-                return
+                except sr.UnknownValueError:
+                    yield {"status": "error", "message": "Could not understand. Try again..."}
+                except sr.RequestError:
+                    yield {"status": "error", "message": "API unavailable."}
+                    return
