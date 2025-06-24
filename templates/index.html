@@ -9,8 +9,12 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
   <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet" />
 </head>
+  <div class="bg"></div>
+  <div class="bg bg2"></div>
+  <div class="bg bg3"></div>
 
 <body class="min-h-screen flex flex-col items-center justify-center text-[#fa832d] px-6 py-10 relative">
+  <div class="content"> 
 
   <!-- Title -->
   <h1 class="text-7xl font-bold tracking-normal mb-10 drop-shadow-lg text-[#fa832d]">ACAPP.AI</h1>
@@ -26,7 +30,7 @@
   </div>
 
   <!-- Status -->
-  <p id="statusText" class="text-base text-[#ff6b00]/80 tracking-wide mb-6">Tap to speak</p>
+  <p id="statusText" class="text-xl text-[#ff6b00]/80 tracking-wide mb-6">Tap to speak</p>
 
   <!-- Input & Output Panel -->
   <div class="w-full max-w-xl bg-gradient-to-br from-[#ff9100] via-[#ff6b00] to-[#ff5400] p-6 rounded-xl shadow space-y-8 text-white">
@@ -71,6 +75,7 @@
         <p id="fanSpeed" class="text-2xl font-bold">-</p>
       </div>
     </div>
+  </div>
   </div>
 
   <!-- Logic -->

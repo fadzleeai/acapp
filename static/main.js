@@ -68,3 +68,30 @@ tempSlider.addEventListener("input", () => {
 humSlider.addEventListener("input", () => {
   humVal.textContent = humSlider.value;
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.querySelector(".rainbow-container");
+
+  // Clear existing rainbow beams if any
+  container.querySelectorAll(".rainbow").forEach(el => el.remove());
+
+  const NUM_BEAMS = 25;
+
+  for (let i = 0; i < NUM_BEAMS; i++) {
+    const beam = document.createElement("div");
+    beam.classList.add("rainbow");
+
+    // Set randomized speed and opacity
+    const speed = (Math.random() * 40 + 60).toFixed(1) + "s"; // slower = smoother
+    const opacity = (Math.random() * 0.4 + 0.3).toFixed(2);   // lower = ghostly
+
+    // Set a negative delay so they start staggered
+    const delay = `-${(i * 6)}s`;
+
+    beam.style.setProperty("--speed", speed);
+    beam.style.setProperty("--opacity", opacity);
+    beam.style.animationDelay = delay;
+
+    container.appendChild(beam);
+  }
+});
