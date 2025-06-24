@@ -34,3 +34,4 @@ class TextToSpeech:
         engine.say(text)
         engine.runAndWait()
         engine.stop()
+

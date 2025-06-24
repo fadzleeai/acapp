@@ -1,8 +1,10 @@
+/* === Base Styles === */
 body {
-    background: #ffffff;
-    font-family: 'Poppins', sans-serif;
+  background: #ffffff;
+  font-family: 'Poppins', sans-serif;
 }
 
+/* === Pulse Wave === */
 .pulse-wave {
   width: 280px;
   height: 280px;
@@ -15,7 +17,7 @@ body {
 
 @keyframes pulseRing {
   0% {
-    transform: scale(1);
+    transform: scale(0.75);
     opacity: 0.4;
   }
   50% {
@@ -27,7 +29,48 @@ body {
     opacity: 0;
   }
 }
-
+/* === Button Press Effect === */
 .press-effect:active {
-    transform: scale(0.94);
+  transform: scale(0.94);
+}
+.bg {
+  animation:slide 3s ease-in-out infinite alternate;
+  background-image: linear-gradient(-60deg, #ff9100 50%, #ff5400 50%);
+  bottom:0;
+  left:-50%;
+  opacity:.5;
+  position:fixed;
+  right:-50%;
+  top:0;
+  z-index:-1;
+}
+
+.bg2 {
+  animation-direction:alternate-reverse;
+  animation-duration:6s;
+}
+
+.bg3 {
+  animation-duration:7s;
+}
+.content {
+  background-color:rgba(255,255,255,.8);
+  border-radius:3em;
+  box-shadow:0 0 .25em rgba(0,0,0,.25);
+  box-sizing:border-box;
+  left:50%;
+  padding:8vmin;
+  position:fixed;
+  text-align:center;
+  top:50%;
+  transform:translate(-50%, -50%);
+}
+
+@keyframes slide {
+  0% {
+    transform:translateX(-25%);
+  }
+  100% {
+    transform:translateX(25%);
+  }
 }
