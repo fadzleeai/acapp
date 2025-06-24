@@ -55,7 +55,6 @@ micBtn.addEventListener("click", async () => {
       micIcon.classList.add("text-orange-600");
       wave.classList.add("hidden");
       evtSource.close();
-    
     }
   };
 });

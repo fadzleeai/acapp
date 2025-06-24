@@ -1,5 +1,6 @@
 from flask import Flask, request, Response, stream_with_context, render_template
-from SREC_MODEL import FuzzyModel, IntentClassifier, SpeechTranscriber, TextToSpeech    
+from SREC_MODEL import FuzzyModel, IntentClassifier, SpeechTranscriber, TextToSpeech
+
 import json, threading
 
 app = Flask(__name__)
