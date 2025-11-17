@@ -1,0 +1,8 @@
+numpy
+scikit-fuzzy
+torch
+SpeechRecognition
+pyttsx3
+sentence-transformers
+flask
+pyaudio
