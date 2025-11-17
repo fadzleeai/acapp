@@ -1,2 +1,7 @@
 venv/
 .venv
+# Ignore Python cache folders
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
