@@ -34,3 +34,6 @@ This project was developed as part of the **Computational Intelligence** course.
 ---
 
 Just speak. No buttons, no hassle — **comfort made simple**.
+
+## Poster
+![ACApp Poster](assets/ACAppAI_Poster.png)
